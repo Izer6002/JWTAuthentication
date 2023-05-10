@@ -135,13 +135,18 @@ namespace JWTAuthentication.Services
                 };
 
             if (!await _roleManager.RoleExistsAsync(Enum.GetName(UserRoles.Admin)))
+            {
                 await _roleManager.CreateAsync(new IdentityRole(Enum.GetName(UserRoles.Admin)));
+            }
 
             if (!await _roleManager.RoleExistsAsync(Enum.GetName(UserRoles.User)))
+            {
                 await _roleManager.CreateAsync(new IdentityRole(Enum.GetName(UserRoles.User)));
-
+            }
             if (await _roleManager.RoleExistsAsync(Enum.GetName(UserRoles.Admin)))
+            {
                 await _userManager.AddToRoleAsync(applicationUser, Enum.GetName(UserRoles.Admin));
+            }
 
             return new Response<bool>()
             {
